@@ -1,0 +1,153 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "./shadcn.css";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-manrope), "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:
+    var(--font-jetbrains), "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    monospace;
+  --font-display: var(--font-playfair), "Playfair Display", ui-serif, Georgia, serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* Navy dark theme sampled from the seller-profile design:
+   #202425 page and comments, #181a1b cards and panels, #383b3d borders, #334155 (slate-700) text fields,
+   #080d20 header, #050b1b inset boxes,
+   #10182d secondary surfaces, #7c3aed violet accents */
+:root {
+  --radius: 0.625rem;
+  --background: #202425;
+  --foreground: #f2f6ff;
+  --card: #181a1b;
+  --card-foreground: #f2f6ff;
+  --popover: #181a1b;
+  --popover-foreground: #f2f6ff;
+  --primary: #7c3aed;
+  --primary-foreground: #ffffff;
+  --secondary: #10182d;
+  --secondary-foreground: #f2f6ff;
+  --muted: #10182d;
+  --muted-foreground: #969aa3;
+  --accent: #1a1440;
+  --accent-foreground: #ede9fe;
+  --destructive: oklch(0.66 0.22 18);
+  --border: rgb(56 59 61 / 90%); /* #383b3d at 90% */
+  --input: rgb(56 59 61 / 90%); /* #383b3d at 90% */
+  --ring: rgb(124 58 237 / 70%);
+  --chart-1: #7c3aed;
+  --chart-2: #8b5cf6;
+  --chart-3: #6d28d9;
+  --chart-4: #a78bfa;
+  --chart-5: #5b21b6;
+  --sidebar: #080d20;
+  --sidebar-foreground: #babdcc;
+  --sidebar-primary: #7c3aed;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #0f1827;
+  --sidebar-accent-foreground: #f2f6ff;
+  --sidebar-border: rgb(56 59 61 / 90%); /* #383b3d at 90% */
+  --sidebar-ring: rgb(124 58 237 / 70%);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+/* Locked surfaces: the page and the comment boxes (comments, replies and the
+   comment input) are always #202425 and every other text field slate-700 (#334155), whatever classes a component sets and
+   whatever state the field is in (focus, disabled, invalid, browser autofill). */
+@layer base {
+  html,
+  body {
+    background-color: #202425 !important;
+  }
+
+  .comment-surface {
+    background-color: #202425 !important;
+  }
+
+  textarea,
+  input:not(
+      [type="checkbox"],
+      [type="radio"],
+      [type="file"],
+      [type="range"],
+      [type="color"],
+      [type="hidden"],
+      [type="submit"],
+      [type="button"],
+      [type="reset"],
+      [type="image"]
+    ) {
+    background-color: #334155 !important;
+  }
+
+  /* The comment input is a comment box first, a text field second */
+  input.comment-surface,
+  textarea.comment-surface {
+    background-color: #202425 !important;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px #334155 inset !important;
+    -webkit-text-fill-color: var(--foreground);
+    caret-color: var(--foreground);
+  }
+}
+
